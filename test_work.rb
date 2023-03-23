@@ -1,7 +1,7 @@
 require 'CSV'
 require 'sqlite3'
 require_relative './utils/utils'
-require_relative './utils/TestTable'
+require_relative './models/TestTable'
 
 # db_name = 'test.db'
 # db = SQLite3::Database.open db_name

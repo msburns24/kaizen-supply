@@ -26,4 +26,7 @@ class TestTable
     SQL
     raw_schema.map { |col_arr| col_arr[1..2] }
   end
+
+  def self.create(data_hash)
+  end
 end
