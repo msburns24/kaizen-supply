@@ -14,6 +14,10 @@ def column_types(db, table_name)
   column_attr.map { |col| col[1..2] }
 end
 
+def row_count(db, table_name)
+  db.execute("SELECT COUNT(*) FROM #{table_name}")[0][0]
+end
+
 def is_integer?(num)
   num.delete(',').to_i.to_s == num
 end
@@ -30,9 +34,7 @@ end
 
 def add_csv_to_db(db, table_name, csv_file)
   # get column names from csv
-  column_names = csv_file.shift
-  # create table
-  # db.execute("CREATE TABLE #{table_name} (#{column_names.join(' TEXT, ')} TEXT)")
+  column_names = csv_file.shift.map { |col| col.gsub(" ", "_").gsub(".", "").downcase }
   # insert rows
   csv_file.each do |row|
     db.execute("INSERT INTO #{table_name} VALUES (#{row.map { |col| col.nil? ? "NULL" : "'#{col}'" }.join(', ')})")

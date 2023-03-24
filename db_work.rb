@@ -17,7 +17,7 @@ output = db.execute <<-SQL
 SQL
 
 output.each do |region, pcf_amt|
-  pcf_amt = (pcf_amt/1000).to_s.reverse.scan(/\d{3}|.+/).join(",").reverse
+  # pcf_amt = (pcf_amt/1000).to_s.reverse.scan(/\d{3}|.+/).join(",").reverse
   puts "#{region}: #{pcf_amt}"
 end
 

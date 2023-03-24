@@ -1,0 +1,16 @@
+AMER  -\
+APAC    |---> PCF Table
+EMEA  -/
+
+gives: PCF
+
++ PDRC        From assumptions table
+gives: TC
+
+- Constr.       Gap summary table
+gives: BR
+
++ HCA           Gap summary table
+gives: CR
+
+bridge to TC
