@@ -27,3 +27,14 @@ def get_input(prompt, valid_responses = [])
   end
   input
 end
+
+def add_csv_to_db(db, table_name, csv_file)
+  # get column names from csv
+  column_names = csv_file.shift
+  # create table
+  # db.execute("CREATE TABLE #{table_name} (#{column_names.join(' TEXT, ')} TEXT)")
+  # insert rows
+  csv_file.each do |row|
+    db.execute("INSERT INTO #{table_name} VALUES (#{row.map { |col| col.nil? ? "NULL" : "'#{col}'" }.join(', ')})")
+  end
+end
