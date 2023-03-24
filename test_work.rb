@@ -15,4 +15,6 @@ require_relative './models/TestTable'
 # p db.execute "select * from test_table"
 # puts db.execute "select sum(qty) from test_table"
 
-p TestTable.column_types
+# TestTable.create("plant": 1060, "material": "776429-1", "qty": 42069)
+
+p TestTable.all

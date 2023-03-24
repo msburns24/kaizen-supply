@@ -1,0 +1,14 @@
+test_table:
+	material:TEXT
+	plant:TEXT
+	qty:INTEGER
+
+test_cr_bridge:
+	field:varchar(255)
+	val:INT
+
+pcf_by_region:
+	region:TEXT
+	fiscal_quarter:TEXT
+	pcf_amt:INTEGER
+

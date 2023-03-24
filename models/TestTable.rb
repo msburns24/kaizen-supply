@@ -27,6 +27,35 @@ class TestTable
     raw_schema.map { |col_arr| col_arr[1..2] }
   end
 
-  def self.create(data_hash)
+  def self.create(data_hash = {})
+    input_cols = data_hash.keys.map { |col| col.to_s }
+    missing = column_names - input_cols
+    extra = input_cols - column_names
+
+    if missing.any? || extra.any?
+      puts "The following errors prevented save:"
+      puts "Missing columns from input: #{missing.to_s}" if missing.any?
+      puts "Input columns not in table: #{extra.to_s}" if extra.any?
+      puts ""
+      return
+    end
+
+    # Format values
+    data_hash.each do |key, val|
+      type = column_types.find { |col_arr| col_arr[0] == key.to_s }[1]
+      if type == "INTEGER"
+        data_hash[key] = val.to_s.split(",").join.to_i
+      else
+        data_hash[key] = val.to_s
+      end
+    end
+
+    # Map values and insert into DB
+    values = column_names.map { |col| data_hash[col.to_sym] }
+    @@db.execute "
+      insert into #{@@table_name} 
+      (#{column_names.join(", ")}) 
+      values (#{values.map { |val| "?" }.join(", ")});
+    ", values
   end
 end
