@@ -2,7 +2,14 @@ require 'CSV'
 require 'sqlite3'
 require_relative "utils/utils"
 
-db_filename = ARGV[0]
+
+
+if ARGV[0]
+  puts "Reached"
+  db_filename = ARGV[0]
+else
+  db_filename = "./db/database.db"
+end
 db = SQLite3::Database.new(db_filename)
 
 tables = table_names(db)

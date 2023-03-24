@@ -20,18 +20,16 @@ class KaizenDataMigration
 end
 
 
-class CreateProductTable < KaizenDataMigration
+class CreatePCFByPartTable < KaizenDataMigration
   def self.migrate
-    create_table "products", {
-      title: :string,
-      posting_date: :date,
-      qty: :integer      
+    create_table "pcf_by_part", {
+      material_number: :string,
+      fiscal_month: :string,
+      pcf_amt: :integer,
+      pcf_units: :integer
     }
   end
 end
 
 
-# CreateProductTable.migrate()
-
-p ARGV
-puts "Class: #{ARGV.class}"
+CreatePCFByPartTable.migrate()
