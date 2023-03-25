@@ -1,5 +1,13 @@
-def migrate(migration_data)
+require_relative "./lib/kaizen-data/migration.rb"
 
-  # Check 
-
+class CreatePCFByPartTable < KaizenData::Migration
+  def self.migrate
+    create_table "gpl_groups", {
+      material_number: :string,
+      gpl_group: :string
+    }
+  end
 end
+
+
+CreatePCFByPartTable.migrate()
