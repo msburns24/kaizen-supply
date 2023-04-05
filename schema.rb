@@ -1,15 +1,9 @@
 require 'CSV'
 require 'sqlite3'
 require_relative "utils/utils"
+require 'terminal-table'
 
-
-
-if ARGV[0]
-  puts "Reached"
-  db_filename = ARGV[0]
-else
-  db_filename = "./db/database.db"
-end
+db_filename = "./ICTCR.db"
 db = SQLite3::Database.new(db_filename)
 
 tables = table_names(db)
@@ -17,18 +11,17 @@ tables = table_names(db)
 table_info = {}
 tables.each do |table|
   table_info[table] = {
-    column_names: [],
-    column_types: [],
-    rows: row_count(db, table)
+    columns: [],
+    rows: format_commas(row_count(db, table.to_s))
   }
   column_types(db, table).each do |column|
-    table_info[table][:column_names] << column[0]
-    table_info[table][:column_types] << column[1]
+    table_info[table][:columns] << [column[0], column[1]]
   end
 end
 
 table_info.each do |table, info|
-  puts "#{table} (#{info[:rows]} rows)"
-  puts "  #{info[:column_names].join(', ')}"
+  puts "Table:    #{table}"
+  puts "Entries:  #{info[:rows]}"
+  puts Terminal::Table.new(rows: info[:columns])
   puts ""
 end

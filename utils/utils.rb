@@ -40,3 +40,7 @@ def add_csv_to_db(db, table_name, csv_file)
     db.execute("INSERT INTO #{table_name} VALUES (#{row.map { |col| col.nil? ? "NULL" : "'#{col}'" }.join(', ')})")
   end
 end
+
+def format_commas(number)
+  number.to_f.round().to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+end
